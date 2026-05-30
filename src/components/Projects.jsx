@@ -24,7 +24,7 @@ const Projects = () => {
       description: 'An advanced AI-powered agricultural marketplace designed to optimize smart farming protocols and connect local farmers directly to high-margin buyer hubs. Facilitated with predictions and search indexes to maximize trade profits.',
       tags: ['React', 'Vite', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB', 'TensorFlow', 'Scikit-learn'],
       repo: 'https://github.com/Tanujwar17/Krishi-Cart'
-    }
+    },
     {
       title: 'Aura Beats',
       category: 'Music Mood Recommendation',
