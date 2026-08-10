@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import Preloader from './components/Preloader';
 import NeuralCanvas from './components/NeuralCanvas';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -11,6 +13,7 @@ import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 
 function App() {
+  const [loading, setLoading] = useState(true);
   // Intersection Observer for scroll fades
   useEffect(() => {
     const revealElements = document.querySelectorAll('.reveal');
@@ -35,7 +38,12 @@ function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen text-slate-100 selection:bg-cyan selection:text-neutral-900 bg-bg-dark">
+    <div className="relative min-h-screen text-slate-100 bg-bg-dark" style={{ '--text-primary': 'var(--color-text-primary)', '--text-secondary': 'var(--color-text-secondary)' }}>
+      {/* High-Tech Preloader Overlay */}
+      <AnimatePresence>
+        {loading && <Preloader key="preloader" onComplete={() => setLoading(false)} />}
+      </AnimatePresence>
+
       {/* Dynamic Synaptic Canvas Web */}
       <NeuralCanvas />
 
@@ -46,12 +54,19 @@ function App() {
         {/* Hero & Interactive Terminal */}
         <Hero />
 
-        {/* About Objective & Academic Path */}
+        {/* About Objective */}
         <section 
           id="about" 
-          className="reveal px-5 py-24 max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
+          className="reveal px-5 py-24 max-w-[1200px] mx-auto"
         >
           <About />
+        </section>
+
+        {/* Experience & Education */}
+        <section
+          id="timeline"
+          className="reveal px-5 py-24 max-w-[1200px] mx-auto"
+        >
           <Timeline />
         </section>
 

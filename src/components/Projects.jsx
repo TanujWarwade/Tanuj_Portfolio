@@ -1,5 +1,6 @@
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ExternalLink, Sprout, Music, BarChart3, CheckCircle2 } from 'lucide-react';
 
 const GithubIcon = ({ size = 16, ...props }) => (
   <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" {...props}>
@@ -10,118 +11,163 @@ const GithubIcon = ({ size = 16, ...props }) => (
 const Projects = () => {
   const list = [
     {
-      title: 'Netflix Data Visualization Assessment',
-      category: 'Data Visualization',
-      date: 'June 2026',
-      description: 'Completed a Netflix dataset visualization assessment showcasing trends, user engagement patterns, and content analytics using Python-based visualization tools.',
-      tags: ['Python', 'Matplotlib', 'Pandas', 'Data Visualization', 'Netflix Dataset'],
-      repo: 'https://github.com/Tanujwar17'
-    },
-    {
-      title: 'KrishiCart',
-      category: 'AI & Fullstack',
+      title: 'KrishiCart – AI Agriculture Marketplace',
+      category: 'AI & Fullstack Development',
       date: 'May 2026',
-      description: 'An advanced AI-powered agricultural marketplace designed to optimize smart farming protocols and connect local farmers directly to high-margin buyer hubs. Facilitated with predictions and search indexes to maximize trade profits.',
-      tags: ['React', 'Vite', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB', 'TensorFlow', 'Scikit-learn'],
-      repo: 'https://github.com/Tanujwar17/Krishi-Cart'
+      color: '#10B981',
+      icon: <Sprout className="text-emerald-600 dark:text-emerald-400" size={24} />,
+      highlights: [
+        'Direct farmer-to-buyer marketplace connection',
+        'Node.js, Express, MongoDB, JWT & Firebase auth backend',
+        'Machine learning price & crop recommendations (Python, TensorFlow, Scikit-learn)'
+      ],
+      description: 'Built an AI-driven agriculture marketplace for farmers and buyers. Developed secure APIs, auth flows, and integrated ML decision support for crop pricing and recommendations.',
+      tags: ['React', 'Vite', 'Tailwind', 'Node.js', 'Express', 'MongoDB', 'JWT', 'Firebase', 'Python', 'TensorFlow', 'Scikit-learn', 'Pandas'],
+      repo: 'https://github.com/TanujWarwade/Krishi-Cart',
+      demo: 'https://github.com/TanujWarwade/Krishi-Cart'
     },
     {
-      title: 'Aura Beats',
-      category: 'Music Mood Recommendation',
-      date: 'May 2026',
-      description: 'A premium mood-based Indian music streaming and recommendation platform featuring a Spotify-inspired sleek aesthetic. Integrates real-time audio playback controls, mood filtering logic, and custom neural recommendation rules to match soundtracks with user emotions.',
-      tags: ['React', 'Vite', 'Audio API', 'AI Mood Engine', 'Tailwind CSS', 'Vanilla CSS'],
-      repo: 'https://github.com/Tanujwar17'
-    },
-    {
-      title: 'FairRide',
-      category: 'Fullstack Web & Algorithms',
+      title: 'Music Mood Recommendation System',
+      category: 'AI & Machine Learning',
       date: 'April 2026',
-      description: 'A decentralized, fair ride-sharing booking platform designed to enforce transparency in transit taxi fares. Implements dynamic geospatial driver-rider pairing, real-time coordinate matching, and automated surge-preventive pricing models.',
-      tags: ['React', 'Vite', 'Node.js', 'Express.js', 'MongoDB', 'Geospatial Grid', 'Algorithms'],
-      repo: 'https://github.com/Tanujwar17'
+      color: '#8B5CF6',
+      icon: <Music className="text-purple-600 dark:text-purple-400" size={24} />,
+      highlights: [
+        'Personalized mood-based song classification',
+        'Data preprocessing with Pandas & NumPy',
+        'Content and collaborative recommendation algorithms'
+      ],
+      description: 'Developed a mood-based music recommendation system using Python for personalized song suggestions based on audio features and user preference signals.',
+      tags: ['Python', 'Machine Learning', 'Pandas', 'NumPy', 'Scikit-learn'],
+      repo: 'https://github.com/TanujWarwade/Music-Mood-Recommendation'
     },
     {
-      title: 'Lost and Found',
-      category: 'Web Development',
-      date: 'January 2026',
-      description: 'A web application built to help campus or local community members quickly report lost objects or catalog found elements with search logic. Styled with modern user experience constraints and responsive screens.',
-      tags: ['HTML5', 'CSS3', 'Python Scripting', 'Responsive Design'],
-      repo: 'https://github.com/Tanujwar17'
+      title: 'Netflix Data Analysis & Insights',
+      category: 'Data Science & Analytics',
+      date: 'Hands-on Practice',
+      color: '#3B82F6',
+      icon: <BarChart3 className="text-indigo-600 dark:text-indigo-400" size={24} />,
+      highlights: [
+        'Exploratory data analysis on Netflix dataset',
+        'Visual trend and category distribution plotting',
+        'Data cleaning, filtering and feature engineering'
+      ],
+      description: 'Analyzed a global Netflix content dataset to uncover trends, content distribution by country, and genre insights using Python.',
+      tags: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Data Analytics', 'EDA'],
+      repo: 'https://github.com/TanujWarwade/Netflix-Data-Visualization'
     }
   ];
 
   return (
-    <section id="projects" className="reveal active px-5 py-24 max-w-[1200px] mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
-        <div>
-          <span className="font-mono text-cyan text-sm uppercase tracking-wider block mb-2.5">
-            Source Repositories
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
-            Featured Projects
-          </h2>
-        </div>
-        <div className="font-mono text-xs sm:text-sm text-text-muted select-none">
-          Click links to inspect elements
-        </div>
+    <section id="projects" className="relative px-5 py-20 overflow-hidden">
+      <div className="absolute left-0 top-12 h-32 w-32 rounded-full bg-purple-500/10 blur-3xl" />
+      <div className="absolute right-0 bottom-10 h-44 w-44 rounded-full bg-cyan-500/10 blur-3xl" />
+
+      <div className="relative z-10 max-w-[1200px] mx-auto text-center">
+        <motion.span
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="font-mono text-indigo-500 text-xs uppercase tracking-wider block font-semibold mb-2"
+        >
+          Source Repositories
+        </motion.span>
+        <motion.h2
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="text-3xl sm:text-4xl font-extrabold mb-4 gradient-text-1"
+        >
+          Featured Projects
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.15 }}
+          className="opacity-80 max-w-[640px] mx-auto mb-14 text-base leading-relaxed"
+        >
+          A showcase of my major AI and full-stack projects, data analytics work, and machine learning implementations.
+        </motion.p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="relative z-10 max-w-[1200px] mx-auto grid gap-8 lg:grid-cols-2 text-left">
         {list.map((proj, idx) => (
-          <div 
-            key={idx} 
-            className="glass-card p-8 flex flex-col h-full overflow-hidden relative group before:absolute before:top-0 before:left-0 before:w-full before:h-1 before:bg-gradient-to-r before:from-cyan before:to-purple before:scale-x-0 before:origin-left hover:before:scale-x-100 before:transition-transform before:duration-300"
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: idx * 0.1 }}
+            whileHover={{ y: -6, scale: 1.02 }}
+            className={`panel-soft p-8 flex flex-col justify-between h-full group ${idx === 0 ? 'lg:col-span-2' : ''}`}
           >
-            {/* Meta details */}
-            <div className="flex justify-between items-center font-mono text-xs text-cyan mb-4">
-              <span>{proj.category}</span>
-              <span className="text-text-muted">{proj.date}</span>
+            <div>
+              <div className="flex items-center justify-between gap-4 mb-4 pb-3 border-b" style={{ borderColor: 'var(--border-color)' }}>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl icon-box flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    {proj.icon}
+                  </div>
+                  <div>
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider block" style={{ color: proj.color }}>
+                      {proj.category}
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-bold group-hover:text-indigo-500 transition-colors">
+                      {proj.title}
+                    </h3>
+                  </div>
+                </div>
+                <span className="font-mono text-xs font-semibold opacity-60">{proj.date}</span>
+              </div>
+
+              <p className="opacity-80 text-sm leading-relaxed mb-6">{proj.description}</p>
+
+              <div className="space-y-3 mb-6">
+                {proj.highlights.map((hl, hIdx) => (
+                  <div key={hIdx} className="flex items-start gap-2 text-sm font-medium opacity-85">
+                    <CheckCircle2 size={16} className="mt-1 shrink-0" style={{ color: proj.color }} />
+                    <span>{hl}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-2 mb-6">
+                {proj.tags.map((tag, tIdx) => (
+                  <span
+                    key={tIdx}
+                    className="font-mono text-[11px] rounded-full border px-3 py-1 opacity-80"
+                    style={{ borderColor: 'var(--border-color)' }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
 
-            {/* Title */}
-            <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-cyan group-hover:shadow-[0_0_10px_rgba(0,242,254,0.15)] transition-all duration-300">
-              {proj.title}
-            </h3>
-
-            {/* Description */}
-            <p className="text-text-secondary text-sm leading-relaxed mb-6 flex-grow">
-              {proj.description}
-            </p>
-
-            {/* Tech Tags */}
-            <div className="flex flex-wrap gap-2 mb-8">
-              {proj.tags.map((tag, tIdx) => (
-                <span 
-                  key={tIdx} 
-                  className="font-mono text-[10px] px-2.5 py-1 rounded bg-white/3 border border-white/5 text-text-secondary"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            {/* Action Links */}
-            <div className="flex gap-5 mt-auto pt-4 border-t border-white/5">
-              <a 
-                href={proj.repo} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-sm font-semibold text-text-primary hover:text-cyan transition-colors flex items-center gap-1.5"
+            <div className="flex flex-col gap-3 pt-4 border-t sm:flex-row sm:items-center sm:justify-between" style={{ borderColor: 'var(--border-color)' }}>
+              <motion.a
+                whileHover={{ scale: 1.03 }}
+                href={proj.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-indigo-500/10 px-4 py-2 text-sm font-semibold text-indigo-500 transition-colors duration-200"
               >
                 <GithubIcon size={16} /> Repository
-              </a>
-              <a 
-                href={proj.repo} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-sm font-semibold text-text-primary hover:text-cyan transition-colors flex items-center gap-1.5"
-              >
-                <ExternalLink size={16} /> Live Demo
-              </a>
+              </motion.a>
+              {proj.demo && (
+                <motion.a
+                  whileHover={{ scale: 1.03 }}
+                  href={proj.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-indigo-500/10 px-4 py-2 text-sm font-semibold text-slate-900 transition-colors duration-200 hover:bg-indigo-500/10"
+                >
+                  <ExternalLink size={16} /> Live Demo
+                </motion.a>
+              )}
             </div>
-
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
