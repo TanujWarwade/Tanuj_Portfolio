@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, FileText, ChevronDown } from 'lucide-react';
 import AICore from './AICore';
 
@@ -59,9 +59,20 @@ const fadeUp = {
 };
 
 const Hero = () => {
+  const { scrollY } = useScroll();
+  const heroOpacity = useTransform(scrollY, [0, 480], [1, 0.35]);
+  const heroScale = useTransform(scrollY, [0, 480], [1, 0.96]);
+  const heroY = useTransform(scrollY, [0, 480], [0, 60]);
+
+  const scrollToAbout = () => {
+    const el = document.getElementById('about');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <section
+    <motion.section
       id="hero"
+      style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}
       className="min-h-screen flex flex-col justify-center px-5 pt-[96px] pb-16 max-w-[1250px] mx-auto relative"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center w-full">
@@ -158,16 +169,20 @@ const Hero = () => {
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
+      <motion.button
+        onClick={scrollToAbout}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.4, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-text-muted"
+        whileHover={{ scale: 1.1, color: '#00f2fe' }}
+        whileTap={{ scale: 0.95 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-text-muted hover:text-cyan transition-colors cursor-pointer group focus:outline-none"
+        aria-label="Scroll down to About section"
       >
-        <span className="text-[10px] font-mono uppercase tracking-widest">Scroll</span>
-        <ChevronDown size={16} className="animate-bounce" />
-      </motion.div>
-    </section>
+        <span className="text-[10px] font-mono uppercase tracking-widest group-hover:tracking-[0.2em] transition-all">Scroll</span>
+        <ChevronDown size={18} className="animate-bounce text-cyan" />
+      </motion.button>
+    </motion.section>
   );
 };
 

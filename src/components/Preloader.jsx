@@ -93,7 +93,7 @@ const Preloader = ({ onComplete }) => {
 
         {/* Title */}
         <h2 className="text-xl font-extrabold tracking-wider bg-gradient-to-r from-cyan via-purple to-pink bg-clip-text text-transparent mb-2">
-          Tanuj Warwade
+          Tanuj's Portfolio
         </h2>
 
         {/* Status text */}

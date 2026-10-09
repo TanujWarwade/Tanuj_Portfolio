@@ -46,6 +46,8 @@ const Header = () => {
     }
   };
 
+  const [activeSection, setActiveSection] = useState('hero');
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -53,8 +55,24 @@ const Header = () => {
       } else {
         setIsScrolled(false);
       }
+
+      if (window.scrollY < 100) {
+        setActiveSection('hero');
+        return;
+      }
+
+      const sections = ['hero', 'about', 'timeline', 'skills', 'projects', 'certifications', 'contact'];
+      const scrollPos = window.scrollY + 250;
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i]);
+        if (el && el.offsetTop > 0 && scrollPos >= el.offsetTop) {
+          setActiveSection(sections[i]);
+          break;
+        }
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -116,21 +134,45 @@ const Header = () => {
           }}
         >
           <ul className="flex flex-col md:flex-row list-none gap-8 md:gap-6 text-center">
-            {['Home', 'About', 'Skills', 'Projects', 'Certifications', 'Contact'].map((item) => (
-              <li key={item}>
-                <a
-                  href={item === 'Home' ? '#hero' : `#${item.toLowerCase()}`}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-base md:text-sm font-medium transition-all duration-300 relative group"
-                  style={{ color: lightMode ? '#475569' : '#94a3b8' }}
-                  onMouseEnter={e => e.currentTarget.style.color = lightMode ? '#0f172a' : '#f1f5f9'}
-                  onMouseLeave={e => e.currentTarget.style.color = lightMode ? '#475569' : '#94a3b8'}
-                >
-                  {item}
-                  <span className="absolute -bottom-1.5 left-0 w-0 h-[1.5px] bg-gradient-to-r from-cyan to-purple group-hover:w-full transition-all duration-300 rounded-full" />
-                </a>
-              </li>
-            ))}
+            {[
+              { label: 'Home', id: 'hero' },
+              { label: 'About', id: 'about' },
+              { label: 'Experience', id: 'timeline' },
+              { label: 'Skills', id: 'skills' },
+              { label: 'Projects', id: 'projects' },
+              { label: 'Certifications', id: 'certifications' },
+              { label: 'Contact', id: 'contact' }
+            ].map((item) => {
+              const secId = item.id;
+              const isActive = activeSection === secId;
+              return (
+                <li key={item.label}>
+                  <a
+                    href={`#${secId}`}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-base md:text-sm font-medium transition-all duration-300 relative group py-1"
+                    style={{
+                      color: isActive
+                        ? lightMode ? '#0284c7' : '#00f2fe'
+                        : lightMode ? '#475569' : '#94a3b8'
+                    }}
+                    onMouseEnter={e => {
+                      if (!isActive) e.currentTarget.style.color = lightMode ? '#0f172a' : '#f1f5f9';
+                    }}
+                    onMouseLeave={e => {
+                      if (!isActive) e.currentTarget.style.color = lightMode ? '#475569' : '#94a3b8';
+                    }}
+                  >
+                    {item.label}
+                    <span
+                      className={`absolute -bottom-1.5 left-0 h-[2px] bg-gradient-to-r from-cyan to-purple transition-all duration-300 rounded-full ${
+                        isActive ? 'w-full shadow-[0_0_8px_#00f2fe]' : 'w-0 group-hover:w-full'
+                      }`}
+                    />
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 

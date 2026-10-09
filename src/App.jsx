@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Preloader from './components/Preloader';
 import NeuralCanvas from './components/NeuralCanvas';
@@ -11,31 +11,11 @@ import Projects from './components/Projects';
 import Certifications from './components/Certifications';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
+import ScrollControls from './components/ScrollControls';
+import ScrollReveal from './components/ScrollReveal';
 
 function App() {
   const [loading, setLoading] = useState(true);
-  // Intersection Observer for scroll fades
-  useEffect(() => {
-    const revealElements = document.querySelectorAll('.reveal');
-    
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-            observer.unobserve(entry.target); // Trigger once
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    revealElements.forEach((el) => observer.observe(el));
-
-    return () => {
-      revealElements.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
 
   return (
     <div className="relative min-h-screen text-slate-100 bg-bg-dark" style={{ '--text-primary': 'var(--color-text-primary)', '--text-secondary': 'var(--color-text-secondary)' }}>
@@ -47,6 +27,9 @@ function App() {
       {/* Dynamic Synaptic Canvas Web */}
       <NeuralCanvas />
 
+      {/* Interactive Global Scroll Controls (Top Bar, Desktop Nav Dots, Back to Top Ring) */}
+      <ScrollControls />
+
       {/* Floating Header Navbar */}
       <Header />
 
@@ -55,32 +38,44 @@ function App() {
         <Hero />
 
         {/* About Objective */}
-        <section 
-          id="about" 
-          className="reveal px-5 py-24 max-w-[1200px] mx-auto"
-        >
+        <ScrollReveal direction="up" distance={30} duration={0.6}>
           <About />
-        </section>
+        </ScrollReveal>
+
+        <div className="section-divider" />
 
         {/* Experience & Education */}
-        <section
-          id="timeline"
-          className="reveal px-5 py-24 max-w-[1200px] mx-auto"
-        >
+        <ScrollReveal direction="up" distance={30} duration={0.6}>
           <Timeline />
-        </section>
+        </ScrollReveal>
+
+        <div className="section-divider" />
 
         {/* Skills Proficiencies */}
-        <Skills />
+        <ScrollReveal direction="up" distance={35} duration={0.65}>
+          <Skills />
+        </ScrollReveal>
+
+        <div className="section-divider" />
 
         {/* Featured Projects Repository */}
-        <Projects />
+        <ScrollReveal direction="up" distance={35} duration={0.65}>
+          <Projects />
+        </ScrollReveal>
+
+        <div className="section-divider" />
 
         {/* Certifications Verified list */}
-        <Certifications />
+        <ScrollReveal direction="up" distance={35} duration={0.65}>
+          <Certifications />
+        </ScrollReveal>
 
-        {/* Contact console JSON POST */}
-        <ContactForm />
+        <div className="section-divider" />
+
+        {/* Contact console */}
+        <ScrollReveal direction="up" distance={35} duration={0.65}>
+          <ContactForm />
+        </ScrollReveal>
       </main>
 
       {/* Footer copyright shortcut */}

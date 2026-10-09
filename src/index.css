@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -22,7 +22,7 @@
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
 
-  --font-sans: 'Outfit', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
   --font-mono: 'Fira Code', monospace;
 
   --animate-pulse-slow: pulse 2s infinite;
@@ -41,7 +41,7 @@
 body {
   background-color: #040409;
   color: #f1f5f9;
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
   transition: background-color 0.6s ease, color 0.6s ease;
@@ -216,7 +216,7 @@ footer {
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.06);
-  transition: all 0.3s ease;
+  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.14s ease, box-shadow 0.14s ease;
 }
 .glass-card:hover {
   border-color: rgba(0, 242, 254, 0.2);
@@ -240,7 +240,7 @@ footer {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 24px;
-  transition: all 0.3s ease;
+  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.14s ease, box-shadow 0.14s ease;
 }
 
 .light-mode .panel-soft {
@@ -253,7 +253,7 @@ footer {
 .icon-box {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.3s ease;
+  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
 }
 .icon-box:hover {
   background: rgba(0, 242, 254, 0.08);
@@ -275,7 +275,7 @@ footer {
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 18px;
   padding: 20px 16px;
-  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
 }
 .skill-logo-card:hover {
   transform: translateY(-6px) scale(1.04);
@@ -305,21 +305,182 @@ footer {
   border-radius: 20px;
   padding: 24px;
   cursor: pointer;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.14s ease, box-shadow 0.14s ease;
 }
 .cert-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  border-color: rgba(0, 242, 254, 0.2);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 24px rgba(0,242,254,0.07);
+  transform: translateY(-12px) scale(1.025);
+  border-color: rgba(0, 242, 254, 0.35);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 28px rgba(0, 242, 254, 0.15);
 }
 
 .light-mode .cert-card {
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(148, 163, 184, 0.25);
 }
 .light-mode .cert-card:hover {
-  border-color: rgba(56, 189, 248, 0.3);
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.10);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12), 0 0 24px rgba(56, 189, 248, 0.12);
+}
+
+/* ===== CERTIFICATIONS SINGLE ROW MARQUEE & FLOATING ANIMATIONS ===== */
+@keyframes cert-track-slide {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.cert-marquee-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: max-content;
+  will-change: transform;
+  animation: cert-track-slide 50s linear infinite;
+}
+
+.cert-marquee-track.is-paused,
+.cert-marquee-track:hover {
+  animation-play-state: paused !important;
+}
+
+@keyframes cert-float-1 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-13px);
+  }
+}
+
+@keyframes cert-float-2 {
+  0%, 100% {
+    transform: translateY(-9px);
+  }
+  50% {
+    transform: translateY(7px);
+  }
+}
+
+@keyframes cert-float-3 {
+  0%, 100% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(-11px);
+  }
+}
+
+.cert-card-wrapper {
+  transition: transform 0.3s ease;
+}
+
+.cert-floating-1 {
+  animation: cert-float-1 4.8s ease-in-out infinite;
+}
+
+.cert-floating-2 {
+  animation: cert-float-2 5.6s ease-in-out infinite 0.9s;
+}
+
+.cert-floating-3 {
+  animation: cert-float-3 5.1s ease-in-out infinite 1.7s;
+}
+
+.cert-card-wrapper:hover {
+  animation-play-state: paused !important;
+}
+
+.cert-fade-edge-left {
+  background: linear-gradient(90deg, #040409 0%, rgba(4, 4, 9, 0.94) 40%, transparent 100%);
+}
+
+.cert-fade-edge-right {
+  background: linear-gradient(270deg, #040409 0%, rgba(4, 4, 9, 0.94) 40%, transparent 100%);
+}
+
+.light-mode .cert-fade-edge-left {
+  background: linear-gradient(90deg, #f0f4ff 0%, rgba(240, 244, 255, 0.94) 40%, transparent 100%);
+}
+
+.light-mode .cert-fade-edge-right {
+  background: linear-gradient(270deg, #f0f4ff 0%, rgba(240, 244, 255, 0.94) 40%, transparent 100%);
+}
+
+/* ===== SKILLS SINGLE ROW MARQUEE & FLOATING ANIMATIONS ===== */
+@keyframes skill-track-slide {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.skill-marquee-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: max-content;
+  will-change: transform;
+  animation: skill-track-slide 50s linear infinite;
+}
+
+.skill-marquee-track.is-paused,
+.skill-marquee-track:hover {
+  animation-play-state: paused !important;
+}
+
+@keyframes skill-float-1 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes skill-float-2 {
+  0%, 100% {
+    transform: translateY(-6px);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.skill-floating-1 {
+  animation: skill-float-1 4.4s ease-in-out infinite;
+}
+
+.skill-floating-2 {
+  animation: skill-float-2 5.4s ease-in-out infinite 0.9s;
+}
+
+.skill-card-wrapper {
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skill-card-wrapper:hover {
+  animation-play-state: paused !important;
+}
+
+.skill-fade-edge-left {
+  background: linear-gradient(90deg, #040409 0%, rgba(4, 4, 9, 0.95) 40%, transparent 100%);
+}
+
+.skill-fade-edge-right {
+  background: linear-gradient(270deg, #040409 0%, rgba(4, 4, 9, 0.95) 40%, transparent 100%);
+}
+
+.light-mode .skill-fade-edge-left {
+  background: linear-gradient(90deg, #f0f4ff 0%, rgba(240, 244, 255, 0.95) 40%, transparent 100%);
+}
+
+.light-mode .skill-fade-edge-right {
+  background: linear-gradient(270deg, #f0f4ff 0%, rgba(240, 244, 255, 0.95) 40%, transparent 100%);
 }
 
 /* ===== CERT PILL ===== */
@@ -473,4 +634,36 @@ footer {
 .light-mode ::selection {
   background: rgba(6, 182, 212, 0.2);
   color: #0f172a;
+}
+
+/* ===== SECTION DIVIDERS ===== */
+.section-divider {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 242, 254, 0.25) 30%, rgba(157, 78, 221, 0.35) 50%, rgba(0, 242, 254, 0.25) 70%, transparent 100%);
+}
+
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #00f2fe;
+  box-shadow: 0 0 10px #00f2fe, 0 0 20px rgba(0, 242, 254, 0.6);
+}
+
+.light-mode .section-divider {
+  background: linear-gradient(90deg, transparent 0%, rgba(6, 182, 212, 0.35) 30%, rgba(139, 92, 246, 0.4) 50%, rgba(6, 182, 212, 0.35) 70%, transparent 100%);
+}
+
+.light-mode .section-divider::after {
+  background-color: #0284c7;
+  box-shadow: 0 0 8px rgba(2, 132, 199, 0.6);
 }
